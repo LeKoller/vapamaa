@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vapamaa/Screens/SignUp/signup.dart';
 import 'package:vapamaa/components/account_check.dart';
 import 'package:vapamaa/components/rounded_button.dart';
 
 import 'package:vapamaa/components/text_field_container.dart';
 import 'package:vapamaa/components/rounded_input_field.dart';
+import 'package:vapamaa/constants.dart';
 import './background.dart';
 
 class BodyLogin extends StatelessWidget {
@@ -52,7 +54,7 @@ class BodyLogin extends StatelessWidget {
             press: () {},
             widthFactor: 0.8,
           ),
-          const AccountCheck(press: null),
+          AccountCheck(press: navigateToSignUpScreen(context)),
         ],
       ),
     );

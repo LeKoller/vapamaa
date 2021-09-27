@@ -20,12 +20,13 @@ class AccountCheck extends StatelessWidget {
         style: const TextStyle(color: kPrimaryColor),
       ),
       GestureDetector(
-          onTap: () {},
-          child: Text(
-            login ? "Sign Up" : "Sign In",
-            style: const TextStyle(
-                color: kPrimaryColor, fontWeight: FontWeight.bold),
-          ))
+        onTap: press,
+        child: Text(
+          login ? "Sign Up" : "Sign In",
+          style: const TextStyle(
+              color: kPrimaryColor, fontWeight: FontWeight.bold),
+        ),
+      ),
     ]);
   }
 }

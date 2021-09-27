@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import './background.dart';
 import 'package:vapamaa/components/rounded_button.dart';
-import 'package:vapamaa/Screens/Login/login.dart';
 import 'package:vapamaa/constants.dart';
 
 class BodyWelcome extends StatelessWidget {
@@ -34,15 +33,11 @@ class BodyWelcome extends StatelessWidget {
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const LoginScreen();
-                }));
-              },
+              press: navidateToLoginScreen(context),
             ),
             RoundedButton(
               text: "SIGN UP",
-              press: () {},
+              press: navigateToSignUpScreen(context),
               color: kPrimaryLightColor,
               textColor: Colors.black54,
             ),
