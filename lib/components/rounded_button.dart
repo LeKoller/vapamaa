@@ -5,6 +5,7 @@ class RoundedButton extends StatelessWidget {
   final String text;
   final void Function()? press;
   final Color color, textColor;
+  final double widthFactor;
 
   const RoundedButton({
     Key? key,
@@ -12,6 +13,7 @@ class RoundedButton extends StatelessWidget {
     required this.press,
     this.color = kPrimaryColor,
     this.textColor = Colors.white,
+    this.widthFactor = 0.6,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class RoundedButton extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      width: size.width * 0.6,
+      width: size.width * widthFactor,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(29),
         child: TextButton(

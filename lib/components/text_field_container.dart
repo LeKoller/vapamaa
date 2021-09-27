@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vapamaa/constants.dart';
 
 class TextFieldContainer extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
   const TextFieldContainer({Key? key, required this.child}) : super(key: key);
 
