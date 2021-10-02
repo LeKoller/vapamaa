@@ -18,8 +18,11 @@ class BodyWelcome extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              "WELCOME TO VAPAMAA!",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              "W E L C O M E  T O  V A P A M A A",
+              style: TextStyle(
+                fontWeight: FontWeight.w100,
+                fontSize: 18,
+              ),
             ),
             SizedBox(
               height: size.height * 0.05,

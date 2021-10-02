@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vapamaa/Screens/Login/components/background.dart';
 
 import './components/body.dart';
 
@@ -9,6 +10,10 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return const Scaffold(body: BodyLogin());
+    return const Scaffold(
+      body: BackgroundLogin(
+        child: BodyLogin(),
+      ),
+    );
   }
 }
