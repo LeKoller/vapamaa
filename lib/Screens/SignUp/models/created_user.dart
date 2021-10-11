@@ -1,21 +1,51 @@
-class CreatedUserModel {
-  final String id;
-  final String username;
-  final String email;
-  final int rank;
-  final bool active;
-  final bool deleted;
-  final String creationDate;
+import 'package:flutter/foundation.dart';
+
+class CreatedUserModel with ChangeNotifier {
+  String id;
+  String username;
+  String email;
+  int rank;
+  bool active;
+  bool deleted;
+  String creationDate;
+  late bool isUserCreated;
 
   CreatedUserModel({
-    required this.id,
-    required this.username,
-    required this.email,
-    required this.rank,
-    required this.active,
-    required this.deleted,
-    required this.creationDate,
+    this.id = '',
+    this.username = '',
+    this.email = '',
+    this.rank = 0,
+    this.active = false,
+    this.deleted = false,
+    this.creationDate = '',
+    this.isUserCreated = false,
   });
+
+  void setCreated() {
+    isUserCreated = true;
+  }
+
+  void setUsername(String value) {
+    if (active) {
+      username = value;
+      notifyListeners();
+    }
+  }
+
+  void setActive() {
+    active = true;
+    notifyListeners();
+  }
+
+  void setAll(CreatedUserModel model) {
+    id = model.id;
+    username = model.username;
+    email = model.email;
+    rank = model.rank;
+    active = model.active;
+    deleted = model.deleted;
+    creationDate = model.creationDate;
+  }
 
   CreatedUserModel.fromJson(Map<String, dynamic> json)
       : id = json['_id'],
@@ -36,16 +66,3 @@ class CreatedUserModel {
         'creationDate': creationDate,
       };
 }
-
-
-
-// {
-//     "_id": "616380f1d1cb503cee14dc0f",
-//     "username": "unnamed",
-//     "email": "lekoller@gmail.com",
-//     "rank": 0,
-//     "active": false,
-//     "deleted": false,
-//     "creationDate": "2021-10-11T00:10:25.879Z",
-//     "__v": 0
-// }

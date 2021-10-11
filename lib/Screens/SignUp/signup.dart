@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import './components/background.dart';
 import './components/body.dart';
 import './models/signup_user.dart';
+import 'models/created_user.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -13,11 +13,17 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackgroundSignUp(
-        child: ChangeNotifierProvider<SignUpUserModel>(
-          create: (context) => SignUpUserModel('', ''),
-          child: const BodySignUp(),
-        ),
-      ),
+          child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<SignUpUserModel>(
+            create: (context) => SignUpUserModel('', ''),
+          ),
+          ChangeNotifierProvider<CreatedUserModel>(
+            create: (context) => CreatedUserModel(),
+          ),
+        ],
+        child: const BodySignUp(),
+      )),
     );
   }
 }

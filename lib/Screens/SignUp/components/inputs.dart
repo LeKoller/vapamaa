@@ -15,11 +15,10 @@ class SignUpInputs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     final baseURL = dotenv.env['BASE_URL'];
     final signUpUserModel =
         Provider.of<SignUpUserModel>(context, listen: false);
+    final createdUserModel = Provider.of<CreatedUserModel>(context);
 
     Future<CreatedUserModel> createUser() async {
       final response = await http.post(
@@ -34,9 +33,13 @@ class SignUpInputs extends StatelessWidget {
       );
 
       if (response.statusCode == 200) {
-        print(jsonDecode(response.body));
+        CreatedUserModel newUser =
+            CreatedUserModel.fromJson(jsonDecode(response.body));
 
-        return CreatedUserModel.fromJson(jsonDecode(response.body));
+        createdUserModel.setAll(newUser);
+        createdUserModel.setCreated();
+
+        return newUser;
       } else {
         throw Exception('Failed to load album');
       }

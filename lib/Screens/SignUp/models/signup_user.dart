@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-// import 'dart:convert';
 
 class SignUpUserModel with ChangeNotifier {
   String email;
