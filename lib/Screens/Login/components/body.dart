@@ -31,15 +31,12 @@ class BodyLogin extends StatelessWidget {
             child: RoundedInputField(
               hintText: "your email",
               icon: Icons.person,
-              onChanged: null,
             ),
           ),
           const TextFieldContainer(
             child: RoundedInputField(
               hintText: "password",
               icon: Icons.lock,
-              onChanged: null,
-              suffixIcon: Icons.visibility,
               isPassword: true,
             ),
           ),

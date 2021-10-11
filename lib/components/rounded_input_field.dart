@@ -1,37 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:vapamaa/constants.dart';
 
-class RoundedInputField extends StatelessWidget {
+class RoundedInputField extends StatefulWidget {
   final String hintText;
   final IconData icon;
-  final IconData? suffixIcon;
-  final ValueChanged<String>? onChanged;
+  final IconButton? suffixIcon;
   final bool isPassword;
+  final void Function(String)? onChanged;
 
   const RoundedInputField({
     Key? key,
     required this.hintText,
     required this.icon,
     this.suffixIcon,
-    required this.onChanged,
     this.isPassword = false,
+    this.onChanged,
   }) : super(key: key);
+
+  @override
+  _RoundedInputFieldState createState() => _RoundedInputFieldState();
+}
+
+class _RoundedInputFieldState extends State<RoundedInputField> {
+  final TextEditingController _controller = TextEditingController();
+  bool _isPasswordVisible = false;
+
+  void passwordControl() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+
+  void _performOnChange() {
+    widget.onChanged!(_controller.text);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Start listening to changes.
+    _controller.addListener(_performOnChange);
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      obscureText: isPassword,
-      onChanged: onChanged,
+      obscureText: widget.isPassword && !_isPasswordVisible,
+      controller: _controller,
       decoration: InputDecoration(
-        hintText: hintText,
+        hintText: widget.hintText,
         icon: Icon(
-          icon,
+          widget.icon,
           color: kPrimaryColor,
         ),
-        suffixIcon: suffixIcon != null
-            ? Icon(
-                suffixIcon,
-                color: kPrimaryColor,
+        suffixIcon: widget.isPassword
+            ? IconButton(
+                onPressed: passwordControl,
+                icon: _isPasswordVisible
+                    ? const Icon(
+                        Icons.visibility_off,
+                        color: kPrimaryColor,
+                      )
+                    : const Icon(
+                        Icons.visibility,
+                        color: kPrimaryColor,
+                      ),
               )
             : null,
         border: InputBorder.none,
