@@ -8,7 +8,6 @@ class CreatedUserModel with ChangeNotifier {
   bool active;
   bool deleted;
   String creationDate;
-  late bool isUserCreated;
 
   CreatedUserModel({
     this.id = '',
@@ -18,12 +17,7 @@ class CreatedUserModel with ChangeNotifier {
     this.active = false,
     this.deleted = false,
     this.creationDate = '',
-    this.isUserCreated = false,
   });
-
-  void setCreated() {
-    isUserCreated = true;
-  }
 
   void setUsername(String value) {
     if (active) {

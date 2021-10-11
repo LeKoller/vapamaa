@@ -9,8 +9,21 @@ import 'package:vapamaa/Screens/WaitingRoom/components/body.dart';
 import 'package:vapamaa/components/account_check.dart';
 import 'package:vapamaa/components/social_media_button.dart';
 
-class BodySignUp extends StatelessWidget {
+class BodySignUp extends StatefulWidget {
   const BodySignUp({Key? key}) : super(key: key);
+
+  @override
+  _BodySignUpState createState() => _BodySignUpState();
+}
+
+class _BodySignUpState extends State<BodySignUp> {
+  bool _waitingRoom = false;
+
+  void toggleWaitingRoom() {
+    setState(() {
+      _waitingRoom = !_waitingRoom;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,43 +32,44 @@ class BodySignUp extends StatelessWidget {
     final createdUserModel = Provider.of<CreatedUserModel>(context);
 
     return SingleChildScrollView(
-      child: !createdUserModel.isUserCreated
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  "S I G N  U P",
-                  style: TextStyle(fontWeight: FontWeight.w100),
-                ),
-                SizedBox(height: size.height * 0.03),
-                SvgPicture.asset(
-                  "assets/icons/signup.svg",
-                  height: size.height * 0.35,
-                ),
-                const SignUpInputs(),
-                SizedBox(height: size.height * 0.02),
-                const AccountCheck(login: false),
-                const OrDivider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SocialMediaButton(
-                      iconPath: "assets/icons/facebook.svg",
-                      press: () {},
-                    ),
-                    SocialMediaButton(
-                      iconPath: "assets/icons/twitter.svg",
-                      press: () {},
-                    ),
-                    SocialMediaButton(
-                      iconPath: "assets/icons/google-plus.svg",
-                      press: () {},
-                    ),
-                  ],
-                ),
-              ],
-            )
-          : const WaitingRoomBody(),
-    );
+        child: _waitingRoom
+            ? const WaitingRoomBody()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    "S I G N  U P",
+                    style: TextStyle(fontWeight: FontWeight.w100),
+                  ),
+                  SizedBox(height: size.height * 0.03),
+                  SvgPicture.asset(
+                    "assets/icons/signup.svg",
+                    height: size.height * 0.35,
+                  ),
+                  SignUpInputs(
+                    goToWaitingRoom: toggleWaitingRoom,
+                  ),
+                  SizedBox(height: size.height * 0.02),
+                  const AccountCheck(login: false),
+                  const OrDivider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SocialMediaButton(
+                        iconPath: "assets/icons/facebook.svg",
+                        press: () {},
+                      ),
+                      SocialMediaButton(
+                        iconPath: "assets/icons/twitter.svg",
+                        press: () {},
+                      ),
+                      SocialMediaButton(
+                        iconPath: "assets/icons/google-plus.svg",
+                        press: () {},
+                      ),
+                    ],
+                  ),
+                ],
+              ));
   }
 }

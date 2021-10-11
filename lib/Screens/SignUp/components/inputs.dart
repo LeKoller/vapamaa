@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:vapamaa/Screens/SignUp/models/created_user.dart';
 import 'package:vapamaa/Screens/SignUp/models/signup_user.dart';
@@ -11,7 +12,12 @@ import 'package:vapamaa/components/rounded_input_field.dart';
 import 'package:vapamaa/components/text_field_container.dart';
 
 class SignUpInputs extends StatelessWidget {
-  const SignUpInputs({Key? key}) : super(key: key);
+  final Function goToWaitingRoom;
+
+  const SignUpInputs({
+    Key? key,
+    required this.goToWaitingRoom,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +43,22 @@ class SignUpInputs extends StatelessWidget {
             CreatedUserModel.fromJson(jsonDecode(response.body));
 
         createdUserModel.setAll(newUser);
-        createdUserModel.setCreated();
+        goToWaitingRoom();
 
         return newUser;
       } else {
-        throw Exception('Failed to load album');
+        throw Exception('Failed to create user.');
       }
     }
+
+    Fluttertoast.showToast(
+        msg: "This is Center Short Toast",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
