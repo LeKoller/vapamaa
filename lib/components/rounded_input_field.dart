@@ -44,7 +44,6 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
   @override
   void initState() {
     super.initState();
-    // Start listening to changes.
     _controller.addListener(_performOnChange);
   }
 

@@ -20,7 +20,7 @@ class AccountCheck extends StatelessWidget {
       GestureDetector(
         onTap: login
             ? navigateToSignUpScreen(context)
-            : navidateToLoginScreen(context),
+            : navidateToLoginScreen(context, ""),
         child: Text(
           login ? "Sign Up" : "Sign In",
           style: const TextStyle(

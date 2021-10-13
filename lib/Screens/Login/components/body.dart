@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import 'package:vapamaa/Screens/Login/models/email_login.dart';
 import 'package:vapamaa/components/account_check.dart';
 import 'package:vapamaa/components/rounded_button.dart';
-
 import 'package:vapamaa/components/text_field_container.dart';
 import 'package:vapamaa/components/rounded_input_field.dart';
 
 class BodyLogin extends StatelessWidget {
-  const BodyLogin({Key? key}) : super(key: key);
+  final String email;
+
+  const BodyLogin({Key? key, this.email = ""}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final emailLoginModel = Provider.of<EmailLoginModel>(context);
     Size size = MediaQuery.of(context).size;
+
+    // setEmail(value) {
+    //   var v = value == "" ? email : value;
+    //   emailLoginModel.setEmail(v);
+    // }
 
     return SingleChildScrollView(
       child: Column(
@@ -27,10 +37,11 @@ class BodyLogin extends StatelessWidget {
             height: size.height * 0.35,
           ),
           SizedBox(height: size.height * 0.03),
-          const TextFieldContainer(
+          TextFieldContainer(
             child: RoundedInputField(
-              hintText: "your email",
+              hintText: email == "" ? "your email" : email,
               icon: Icons.person,
+              // onChanged: (value) => setEmail(value),
             ),
           ),
           const TextFieldContainer(

@@ -24,7 +24,8 @@ class SignUpInputs extends StatelessWidget {
     final baseURL = dotenv.env['BASE_URL'];
     final signUpUserModel =
         Provider.of<SignUpUserModel>(context, listen: false);
-    final createdUserModel = Provider.of<CreatedUserModel>(context);
+    final createdUserModel =
+        Provider.of<CreatedUserModel>(context, listen: false);
 
     Future<CreatedUserModel> createUser() async {
       final response = await http.post(
@@ -39,6 +40,16 @@ class SignUpInputs extends StatelessWidget {
       );
 
       if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+          msg: "Created with success!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.greenAccent[400],
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+
         CreatedUserModel newUser =
             CreatedUserModel.fromJson(jsonDecode(response.body));
 
@@ -47,18 +58,19 @@ class SignUpInputs extends StatelessWidget {
 
         return newUser;
       } else {
+        Fluttertoast.showToast(
+          msg: "Failed to create user",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.redAccent[400],
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+
         throw Exception('Failed to create user.');
       }
     }
-
-    Fluttertoast.showToast(
-        msg: "This is Center Short Toast",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

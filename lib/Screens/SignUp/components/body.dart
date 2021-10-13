@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 import 'package:vapamaa/Screens/SignUp/components/inputs.dart';
 import 'package:vapamaa/Screens/SignUp/components/or_divider.dart';
-import 'package:vapamaa/Screens/SignUp/models/created_user.dart';
 import 'package:vapamaa/Screens/WaitingRoom/components/body.dart';
 import 'package:vapamaa/components/account_check.dart';
 import 'package:vapamaa/components/social_media_button.dart';
@@ -28,8 +26,6 @@ class _BodySignUpState extends State<BodySignUp> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    final createdUserModel = Provider.of<CreatedUserModel>(context);
 
     return SingleChildScrollView(
         child: _waitingRoom

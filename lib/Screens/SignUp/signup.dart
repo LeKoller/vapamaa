@@ -13,17 +13,18 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackgroundSignUp(
-          child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider<SignUpUserModel>(
-            create: (context) => SignUpUserModel('', ''),
-          ),
-          ChangeNotifierProvider<CreatedUserModel>(
-            create: (context) => CreatedUserModel(),
-          ),
-        ],
-        child: const BodySignUp(),
-      )),
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<SignUpUserModel>(
+              create: (context) => SignUpUserModel('', ''),
+            ),
+            ChangeNotifierProvider<CreatedUserModel>(
+              create: (context) => CreatedUserModel(),
+            ),
+          ],
+          child: const BodySignUp(),
+        ),
+      ),
     );
   }
 }

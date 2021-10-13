@@ -36,7 +36,7 @@ class BodyWelcome extends StatelessWidget {
             ),
             RoundedButton(
               text: "LOGIN",
-              press: navidateToLoginScreen(context),
+              press: navidateToLoginScreen(context, ""),
             ),
             RoundedButton(
               text: "SIGN UP",
