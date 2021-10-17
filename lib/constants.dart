@@ -4,9 +4,19 @@ import 'package:flutter/material.dart';
 
 import 'package:vapamaa/Screens/Login/login.dart';
 import 'package:vapamaa/Screens/SignUp/signup.dart';
+import 'package:vapamaa/Screens/Dashboard/dashboard.dart';
+import 'package:vapamaa/Screens/Welcome/welcome.dart';
 
 const kPrimaryColor = Color(0xFF6F35A5);
 const kPrimaryLightColor = Color(0xFFF1E6FF);
+
+Function navigateToWelcomeScreen = (context) {
+  return () {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return const WelcomeScreen();
+    }));
+  };
+};
 
 Function navigateToSignUpScreen = (context) {
   return () {
@@ -20,6 +30,14 @@ Function navidateToLoginScreen = (context, email) {
   return () {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return LoginScreen(email: email);
+    }));
+  };
+};
+
+Function navidateToDashboardScreen = (context) {
+  return () {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return const DashboardScreen();
     }));
   };
 };

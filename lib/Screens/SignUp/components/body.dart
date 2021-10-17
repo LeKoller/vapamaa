@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:vapamaa/Screens/SignUp/components/inputs.dart';
 import 'package:vapamaa/Screens/SignUp/components/or_divider.dart';
-import 'package:vapamaa/Screens/WaitingRoom/components/body.dart';
+import 'package:vapamaa/Screens/SignUp/sub_screens/WaitingRoom/body.dart';
 import 'package:vapamaa/components/account_check.dart';
 import 'package:vapamaa/components/social_media_button.dart';
 

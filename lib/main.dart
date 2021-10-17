@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
+import 'package:vapamaa/Screens/Dashboard/dashboard.dart';
 
 import './constants.dart';
 import './Screens/Welcome/welcome.dart';
+import 'models/logged_user.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
@@ -20,7 +23,10 @@ class MyApp extends StatelessWidget {
       title: 'Project Vapamaa',
       theme: ThemeData(
           primaryColor: kPrimaryColor, scaffoldBackgroundColor: Colors.white),
-      home: const WelcomeScreen(),
+      home: ChangeNotifierProvider<LoggedUserModel>(
+        create: (context) => LoggedUserModel(),
+        child: const DashboardScreen(),
+      ),
     );
   }
 }

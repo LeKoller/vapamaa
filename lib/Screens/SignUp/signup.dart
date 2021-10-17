@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import './components/background.dart';
 import './components/body.dart';
-import './models/signup_user.dart';
-import 'models/created_user.dart';
+import '../../models/signup_user.dart';
+import '../../models/created_user.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);

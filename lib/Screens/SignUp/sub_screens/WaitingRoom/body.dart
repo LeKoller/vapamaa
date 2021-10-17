@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vapamaa/Screens/SignUp/models/created_user.dart';
-import 'package:vapamaa/Screens/WaitingRoom/components/data_display.dart';
+import 'package:vapamaa/models/created_user.dart';
+import 'package:vapamaa/components/data_display.dart';
 import 'package:vapamaa/components/rounded_button.dart';
 import 'package:vapamaa/constants.dart';
 
@@ -26,7 +26,10 @@ class WaitingRoomBody extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.04),
           DataDisplay(
-            user: user,
+            username: user.username,
+            email: user.email,
+            rank: user.rank,
+            active: user.active,
           ),
           SizedBox(height: size.height * 0.03),
           Container(

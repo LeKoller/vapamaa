@@ -4,44 +4,44 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vapamaa/Screens/Dashboard/dashboard.dart';
+import 'package:vapamaa/models/email_login.dart';
+import 'package:vapamaa/models/logged_user.dart';
 
-import 'package:vapamaa/models/created_user.dart';
-import 'package:vapamaa/models/signup_user.dart';
 import 'package:vapamaa/components/rounded_button.dart';
 import 'package:vapamaa/components/rounded_input_field.dart';
 import 'package:vapamaa/components/text_field_container.dart';
+import 'package:vapamaa/constants.dart';
 
-class SignUpInputs extends StatelessWidget {
-  final Function goToWaitingRoom;
+class LoginInputs extends StatelessWidget {
+  final String email;
 
-  const SignUpInputs({
+  const LoginInputs({
     Key? key,
-    required this.goToWaitingRoom,
+    this.email = "",
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final baseURL = dotenv.env['BASE_URL'];
-    final signUpUserModel =
-        Provider.of<SignUpUserModel>(context, listen: false);
-    final createdUserModel =
-        Provider.of<CreatedUserModel>(context, listen: false);
+    final loggedUserModel = Provider.of<LoggedUserModel>(context);
+    final emailLoginModel = Provider.of<EmailLoginModel>(context);
 
-    Future<CreatedUserModel> createUser() async {
+    Future<LoggedUserModel> login() async {
       final response = await http.post(
-        Uri.parse("$baseURL/users"),
+        Uri.parse("$baseURL/login"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': '*/*',
           'Accept-Encoding': 'gzip, deflate, br',
           'Connection': 'keep-alive'
         },
-        body: jsonEncode(signUpUserModel.toJson()),
+        body: jsonEncode(emailLoginModel.toJson()),
       );
 
       if (response.statusCode == 200) {
         Fluttertoast.showToast(
-          msg: "Created with success!",
+          msg: "Logged with success!",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -50,16 +50,20 @@ class SignUpInputs extends StatelessWidget {
           fontSize: 16.0,
         );
 
-        CreatedUserModel newUser =
-            CreatedUserModel.fromJson(jsonDecode(response.body));
+        LoggedUserModel user =
+            LoggedUserModel.fromJson(jsonDecode(response.body));
 
-        createdUserModel.setAll(newUser);
-        goToWaitingRoom();
+        loggedUserModel.save(user);
 
-        return newUser;
+        await Future.delayed(const Duration(seconds: 1));
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const DashboardScreen();
+        }));
+
+        return user;
       } else {
         Fluttertoast.showToast(
-          msg: "Failed to create user",
+          msg: "Failed to log in.",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -68,18 +72,17 @@ class SignUpInputs extends StatelessWidget {
           fontSize: 16.0,
         );
 
-        throw Exception('Failed to create user.');
+        throw Exception('Failed to log in.');
       }
     }
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextFieldContainer(
           child: RoundedInputField(
-            hintText: "your email",
+            hintText: email == "" ? "your email" : email,
             icon: Icons.person,
-            onChanged: (value) => signUpUserModel.setEmail(value),
+            onChanged: (value) => emailLoginModel.setEmail(value),
           ),
         ),
         TextFieldContainer(
@@ -87,12 +90,12 @@ class SignUpInputs extends StatelessWidget {
             hintText: "password",
             icon: Icons.lock,
             isPassword: true,
-            onChanged: (value) => signUpUserModel.setPassword(value),
+            onChanged: (value) => emailLoginModel.setPassword(value),
           ),
         ),
         RoundedButton(
-          text: "SIGN UP",
-          press: createUser,
+          text: "LOGIN",
+          press: login,
           widthFactor: 0.8,
         ),
       ],

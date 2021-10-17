@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 
-import 'package:vapamaa/Screens/SignUp/models/created_user.dart';
 import 'package:vapamaa/constants.dart';
 
 class DataDisplay extends StatelessWidget {
-  final CreatedUserModel user;
+  final String username;
+  final String email;
+  final int rank;
+  final bool active;
 
-  const DataDisplay({Key? key, required this.user}) : super(key: key);
+  const DataDisplay({
+    Key? key,
+    required this.username,
+    required this.email,
+    required this.rank,
+    required this.active,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        IndividualDisplay(data: user.username),
-        IndividualDisplay(data: user.email),
+        IndividualDisplay(data: username),
+        IndividualDisplay(data: email),
         IndividualDisplay(
-            data: "Rank: ${user.rank} -> here we measure your influence"),
-        IndividualDisplay(data: user.active ? 'Active' : 'Unactive'),
+            data: "Rank: ${rank} -> here we measure your influence"),
+        IndividualDisplay(data: active ? 'Active' : 'Unactive'),
       ],
     );
   }
